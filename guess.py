@@ -2,12 +2,12 @@ import random
 
 class NumberGuessingGame:
     def __init__(self):
-        self.secret_number = random.randint(1, 100)
+        self.secret_number = random.randint(1, 101)
         self.attempts = 0
 
     def guess_number(self, guess):
         self.attempts += 1
-        if (self.attempts == 10):
+        if (self.attempts == 6):
             return "You have used all your attempts"
         if guess < self.secret_number:
             return "Too low! Try again."
