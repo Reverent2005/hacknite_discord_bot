@@ -97,12 +97,12 @@ class HangmanGame:
     else:
         instructions += "- Continue by guessing a letter using $guess <letter>"
 
-    image_url = f"https://your-replit-project-name.{os.environ.get('REPL_SLUG')}.repl.co/images/{self.current_drawing_index}.jpg"
+    image_url = f"https://replit.com/@harshgupta2300/Discord-Bot#images/{self.current_drawing_index}.jpg"
     instructions += f"\n![Hangman Image]({image_url})"
     return instructions
-
-
+    
   def get_current_drawing(self):
-    image_filename = f"{self.current_drawing_index + 1}.jpg"
-    image_path = os.path.join(self.image_folder_path, image_filename)
-    return image_path
+      image_filename = f"{self.current_drawing_index + 1}.jpg"
+      image_url = f"https://replit.com/@harshgupta2300/Discord-Bot#images/{image_filename}"
+      return image_url
+
