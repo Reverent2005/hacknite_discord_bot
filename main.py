@@ -295,19 +295,23 @@ async def supsdownguess(ctx, guess: str):
   if result_message.startswith("Congratulations") and discord.utils.get(ctx.author.roles, name="Green Role"):
     user_id = ctx.message.author.id
     add_money(user_id, 3 * bet_amount)  # Triple the bet amount if they have the Green Role
+    bet_amount = 0
+    game_instance_supsdown.reset_game()
+    game_in_progress = False
+    await ctx.send("Type $supsdown to start a new game.")
   
   elif result_message.startswith("Congratulations"):
     if (guess == "7"):
       user_id = ctx.message.author.id
       add_money(user_id, 3*bet_amount)
     else:
-      await ctx.send("Type $supsdown to start a new game.")
       user_id = ctx.message.author.id
       add_money(user_id, 2*bet_amount)
     bet_amount = 0
     game_instance_supsdown.reset_game()
     game_in_progress = False
-  if result_message.startswith("You have lost the bet"):
+    await ctx.send("Type $supsdown to start a new game.")
+  elif result_message.startswith("You have lost the bet"):
     game_instance_supsdown.reset_game()
     bet_amount = 0
     game_in_progress = False
@@ -368,7 +372,7 @@ store_items = {
     "2. Purple Role": {
         "price": 40000,
         "role_name": "Purple Role",
-        "description": "Get 10 attempts in HangMan (Purple Colored Role)"
+        "description": "For the love of purple. (Purple Colored Role)"
     },
     "3. Green Role": {
         "price": 60000,
@@ -376,7 +380,7 @@ store_items = {
         "description": "Get triple the amount if guessed correctly in 7 Up and 7 Down (Green Colored Role)"
     },
     "4. Yellow Role": {
-        "price": 100000,
+        "price": 70000000,
         "role_name": "Yellow Role",
         "description": "Saaath Kadod (Yellow Colored Role)"
     }
