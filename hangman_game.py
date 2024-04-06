@@ -96,6 +96,8 @@ class HangmanGame:
     instructions += (f"- Attempts left: {self.attempts_left}\n"
                      f"- Current word: {masked_word_display}\n"
                      f"- Please reply with a 5-10 second delay :)\n")
+    if self.attempts_left == 1:
+      instructions += "- The man is suffocating!!! You have a last chance to save him!!!!\n"
     if self.first_time:
       instructions += "- Start by guessing a letter using $guess_letter <letter>"
     else:
