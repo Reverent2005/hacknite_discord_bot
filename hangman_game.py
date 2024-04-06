@@ -62,8 +62,7 @@ class HangmanGame:
   async def guess_letter(self, ctx, letter):
     letter = letter.lower()
     if letter in self.guesses:
-      await ctx.send("You've already guessed that letter!")
-      return False
+      return False, "You've already guessed that letter!"
 
     self.guesses.add(letter)
     if letter in self.current_word:
@@ -71,21 +70,15 @@ class HangmanGame:
         if char == letter:
           self.masked_word[i] = letter
       if '_' not in self.masked_word:
-        await ctx.send("Congratulations! You guessed the word: " +
-                       self.current_word)
-        return True
+        return True, "Congratulations! You guessed the word: " + self.current_word
     else:
       self.attempts_left -= 1
       if self.attempts_left >= 0:
         self.current_drawing_index += 1
       if self.attempts_left == 0:
-        await ctx.send(f"Suffocation killed the man:skull_crossbones:. The country was: " 
-                       + self.current_word)
-        return True
-
+        return True, f"Suffocation killed the man:skull_crossbones:. The country was: " + self.current_word
     # Send the current state after each guess
-    await self.get_current_state(ctx)
-    return False
+    return False, await self.get_current_state(ctx)
     
   async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
