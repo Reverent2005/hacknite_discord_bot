@@ -79,8 +79,8 @@ class HangmanGame:
       if self.attempts_left >= 0:
         self.current_drawing_index += 1
       if self.attempts_left == 0:
-        await ctx.send("Sorry, you ran out of attempts. The country was: " +
-                       self.current_word)
+        await ctx.send(f"Suffocation killed the man:skull_crossbones:. The country was: " 
+                       + self.current_word)
         return True
 
     # Send the current state after each guess
@@ -99,9 +99,9 @@ class HangmanGame:
                      f"- Current word: {masked_word_display}\n"
                      f"- Hangman status:\n")
     if self.first_time:
-      instructions += "- Start by guessing a letter using $guess <letter>"
+      instructions += "- Start by guessing a letter using $guess_letter <letter>"
     else:
-      instructions += "- Continue by guessing a letter using $guess <letter>"
+      instructions += "- Continue by guessing a letter using $guess_letter <letter>"
   
     if self.attempts_left == 0:
       self.current_drawing_index = 5
@@ -121,4 +121,4 @@ async def send_hangman_image(ctx, game_instance, message):
     await ctx.send(content=message,
                    file=discord.File(image_file, "hangman_image.jpg"))
     # Introduce a delay after sending each message
-    await asyncio.sleep(1)  # Adjust the delay time as needed
+    await asyncio.sleep(5)  # Adjust the delay time as needed
