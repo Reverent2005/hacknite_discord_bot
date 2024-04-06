@@ -25,8 +25,13 @@ channel_id = 1225736957917925378
 @client.command()
 async def hangman(ctx):
   global game_instance_hangman
+  global game_in_progress
+  if (game_in_progress):
+    await ctx.send("A game is already in progress.")
+    return
   game_instance_hangman.reset_game()
   await game_instance_hangman.get_current_state(ctx)
+  game_in_progress = True
   
 @client.command()
 async def camelhelp(ctx):
@@ -47,13 +52,17 @@ Here's what you can do with CamelCoins:
 11. 🎲 **$supsdown** - Start the 7 Up 7 Down game.
 12. 🎲 **$supsdownguess [guess]** - Guess the sum in the 7 Up 7 Down game.
     Valid guesses: '7up', '7down', or '7'.
-13. ℹ️ **$camelhelp** - Display this help message. Because even camel riders need directions sometimes.
-    """
+13. 🕹️ **$hangman** - Start the game Hangman.
+14. 🤔 **$guess_letter [letter]** - Input the letter to be guessed using this command.
+15. 💼 **$exithangman** - Quit hangman game. 
+16. ℹ️ **$camelhelp** - Display this help message. Because even camel riders need directions sometimes.
+"""
   await ctx.send(help_message)
 
 @client.command()
 async def guess_letter(ctx, letter: str):
   global game_instance_hangman
+  global game_in_progress
   game_over, result_message = await game_instance_hangman.guess_letter(ctx, letter.lower())
   await ctx.send(result_message)
   if result_message.startswith("Suffocation"):
@@ -66,7 +75,14 @@ async def guess_letter(ctx, letter: str):
     else:
       await ctx.send("Error:", response.status_code, response.text)
   if game_over:
+      game_in_progress = False
       await ctx.send("Type $hangman to start a new game.")
+
+@client.command()
+async def exithangman(ctx):
+    global game_instance_hangman
+    game_instance_hangman = None  # Reset the game instance to exit Hangman
+    await ctx.send("Winners never Quit. But you did, so you are not winner. Then who are you? Quitter? Twitter? Elon Musk?")
 
 @client.command()
 async def addmoney(ctx, coins: int):
@@ -148,9 +164,10 @@ async def steal(ctx, target: discord.Member, amount: int):
   if thief_id == target_id:
     await ctx.send("Stealing from yourself? That's like trying to outsmart a mirror!:mirror: Maybe time to rethink your strategy, eh?")
     return
-    
-  if amount <= 0:
-    await ctx.send("You can't steal negative or zero camel coins:camel:!:man_shrugging:")
+
+  if amount < 10:
+    await ctx.send("Trying to pilfer less than ten camel coins:camel:? Looks like someone's aiming for petty theft! Aim higher, or at least aim for double digits!:man_shrugging:")
+    return
 
   if amount > 100:
     await ctx.send("You can't be that greedy! Maximum steal limit is 100 camel coins:camel:.:smiling_imp:")
