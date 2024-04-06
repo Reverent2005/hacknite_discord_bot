@@ -41,7 +41,7 @@ async def camelhelp(ctx):
 🐪 **Welcome to CamelBot's Command Help!** 🐪
 Here's what you can do with CamelCoins:
 
-1. 💰 **$addmoney [amount]** - Add camel coins to your balance. (Admin only)
+1. 💰 **$addmoney [user] [amount]** - Add camel coins to your balance. (Admin only)
 2. 🎲 **$bet [amount]** - Place your bet before starting a game.
 3. 💼 **$balance** - Check your current camel coin balance.
 4. 🎁 **$give [user] [amount]** - Share some camel coins with another user.
@@ -58,6 +58,7 @@ Here's what you can do with CamelCoins:
 14. 🤔 **$guess_letter [letter]** - Input the letter to be guessed using this command.
 15. 💼 **$exithangman** - Quit hangman game. 
 16. ℹ️ **$camelhelp** - Display this help message. Because even camel riders need directions sometimes.
+17. 💰 **$deductmoney [user] [amount]** - Deduct camel coins from your balance. (Admin only)
 """
   await ctx.send(help_message)
   
