@@ -5,6 +5,7 @@ from discord.ext import commands
 from supsdown import updown
 from replit import db
 import random
+import asyncio
 from hangman_game import HangmanGame, get_word_list, send_hangman_image
 from guess import NumberGuessingGame
 
@@ -20,6 +21,7 @@ word_list = get_word_list()
 image_folder_path = 'images'
 game_instance_hangman = HangmanGame(word_list,image_folder_path)
 channel_id = 1225736957917925378
+active_coin_drops = {}
 
 
 @client.command()
@@ -58,7 +60,7 @@ Here's what you can do with CamelCoins:
 16. ℹ️ **$camelhelp** - Display this help message. Because even camel riders need directions sometimes.
 """
   await ctx.send(help_message)
-
+  
 @client.command()
 async def guess_letter(ctx, letter: str):
   global game_instance_hangman
@@ -242,7 +244,7 @@ async def supsdown(ctx):
     await ctx.send(f"Hold your horses! A game's already underway. Patience, my friend.")
     return
   game_in_progress = True
-  await ctx.send("Welcome to 7 Up 7 Down! :game_die: I'm rolling two dice. Can you guess the sum?")
+  await ctx.send("Welcome to 7 Up 7 Down! :game_die: I'm rolling two dice. Guess whether it is 7up, 7down or 7?")
 
 @client.command()
 async def supsdownguess(ctx, guess: str):
@@ -319,6 +321,72 @@ async def leaderboard(ctx):
     await ctx.send(leaderboard_message)
   else:
     await ctx.send("The leaderboard is currently empty.")
+
+store_items = {
+    "1. Red Role": {
+        "price": 20000,
+        "role_name": "Red Role",  # Role name should match exactly with Discord role names
+        "description": "Get 15 attempts in Number Guess Game (Red Colored Role)"
+    },
+    "2. Purple Role": {
+        "price": 40000,
+        "role_name": "Purple Role",
+        "description": "Get 10 attempts in HangMan (Purple Colored Role)"
+    },
+    "3. Green Role": {
+        "price": 60000,
+        "role_name": "Green Role",
+        "description": "Get triple the amount if guessed correctly in 7 Up and 7 Down (Green Colored Role)"
+    },
+    "4. Yellow Role": {
+        "price": 100000,
+        "role_name": "Yellow Role",
+        "description": "Saaath Kadod (Yellow Colored Role)"
+    }
+}
+
+
+
+@client.command()
+async def store(ctx):
+    store_message = "🛒 **Welcome to the Store!** 🛒\n\nWrite $buy [number] to buy that specific role.\n\n"
+    for item_name, item_details in store_items.items():
+        description = item_details["description"]
+        price = item_details["price"]
+        store_message += f"**{item_name}**: {description}\nPrice: {price} camel coins\n\n"
+    await ctx.send(store_message)
+
+@client.command()
+async def buy(ctx, item_number: int):
+    user_id = str(ctx.author.id)
+    if user_id not in db.keys():
+        db[user_id] = 0
+
+    # Check if the item number is valid
+    if item_number < 1 or item_number > len(store_items):
+        await ctx.send("Invalid item number.")
+        return
+
+    # Get the item details based on the item number
+    item_keys = list(store_items.keys())
+    item_name = item_keys[item_number - 1]  # Adjust index for 1-based numbering
+    item_details = store_items[item_name]
+
+    item_price = item_details["price"]
+    if db[user_id] < item_price:
+        await ctx.send("Insufficient balance to purchase this item.")
+        return
+
+    role_name = item_details["role_name"]
+    role = discord.utils.get(ctx.guild.roles, name=role_name)
+    if role is None:
+        await ctx.send("Role not found. Please contact server admin.")
+        return
+
+    await ctx.author.add_roles(role)  # Assign role to user
+    db[user_id] -= item_price  # Deduct coins from user's balance
+    await ctx.send(f"Congratulations! You have purchased the {item_name}. Enjoy your new role.")
+
 
 try:
     client.run(os.getenv("TOKEN"))
