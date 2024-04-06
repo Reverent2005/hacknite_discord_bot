@@ -28,7 +28,7 @@ def get_word_list():
       "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania",
       "Russia", "Rwanda", "Saint", "Samoa", "San", "Sao", "Saudi", "Senegal",
       "Serbia", "Seychelles", "Sierra", "Singapore", "Slovakia", "Slovenia",
-      "Solomon", "Somalia", "South", "Spain", "America", "Sudan", "Suriname",
+      "Solomon", "Somalia", "Spain", "America", "Sudan", "Suriname",
       "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania",
       "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad", "Tunisia",
       "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United",
