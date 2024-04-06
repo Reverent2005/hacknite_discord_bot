@@ -1,6 +1,7 @@
 import random
 import os
 import discord
+import asyncio
 
 
 def get_word_list():
@@ -46,9 +47,8 @@ class HangmanGame:
     self.max_attempts = 5
     self.attempts_left = self.max_attempts
     self.reset_game()
+    self.image_folder_path = image_folder_path
     self.first_time = True
-    self.current_drawing_index = 0
-    self.image_folder_path = 'images'
 
   def reset_game(self):
     self.attempts_left = self.max_attempts
@@ -57,11 +57,13 @@ class HangmanGame:
     self.masked_word = [
         '_' if char.isalpha() else char for char in self.current_word
     ]
+    self.current_drawing_index = 0
 
   async def guess_letter(self, ctx, letter):
     letter = letter.lower()
     if letter in self.guesses:
-      return False, "You've already guessed that letter!"
+      await ctx.send("You've already guessed that letter!")
+      return False
 
     self.guesses.add(letter)
     if letter in self.current_word:
@@ -69,16 +71,22 @@ class HangmanGame:
         if char == letter:
           self.masked_word[i] = letter
       if '_' not in self.masked_word:
-        return True, "Congratulations! You guessed the word: " + self.current_word
+        await ctx.send("Congratulations! You guessed the word: " +
+                       self.current_word)
+        return True
     else:
       self.attempts_left -= 1
       if self.attempts_left >= 0:
         self.current_drawing_index += 1
       if self.attempts_left == 0:
-        return True, "Sorry, you ran out of attempts. The country was: " + self.current_word
+        await ctx.send("Sorry, you ran out of attempts. The country was: " +
+                       self.current_word)
+        return True
 
-    return False, await self.get_current_state(ctx)
-
+    # Send the current state after each guess
+    await self.get_current_state(ctx)
+    return False
+    
   async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
     instructions = ""
@@ -94,7 +102,7 @@ class HangmanGame:
       instructions += "- Start by guessing a letter using $guess <letter>"
     else:
       instructions += "- Continue by guessing a letter using $guess <letter>"
-
+  
     if self.attempts_left == 0:
       self.current_drawing_index = 5
     image_path = f"images/{self.current_drawing_index}.jpg"
@@ -107,8 +115,10 @@ class HangmanGame:
     return image_path
 
 
-async def send_hangman_image(ctx, game_instance_hangman, message):
-  image_path = game_instance_hangman.get_current_drawing()
+async def send_hangman_image(ctx, game_instance, message):
+  image_path = game_instance.get_current_drawing()
   with open(image_path, "rb") as image_file:
     await ctx.send(content=message,
                    file=discord.File(image_file, "hangman_image.jpg"))
+    # Introduce a delay after sending each message
+    await asyncio.sleep(1)  # Adjust the delay time as needed

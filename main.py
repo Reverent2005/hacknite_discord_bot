@@ -27,9 +27,8 @@ channel_id = 1225736957917925378
 async def hangman(ctx):
   global game_instance_hangman
   game_instance_hangman.reset_game()
-  instructions = await game_instance_hangman.get_current_state(ctx)
-  await ctx.send(f"Welcome to Hangman!\n{instructions}")
-
+  await game_instance_hangman.get_current_state(ctx)
+  
 @client.command()
 async def camelhelp(ctx):
   help_message = """
@@ -56,9 +55,6 @@ Here's what you can do with CamelCoins:
 @client.command()
 async def guess_letter(ctx, letter: str):
   global game_instance_hangman
-  if not letter.isalpha() or len(letter) != 1:
-      await ctx.send("Please enter a single letter.")
-      return
   game_over, result_message = await game_instance_hangman.guess_letter(ctx, letter.lower())
   await ctx.send(result_message)
   if game_over:
@@ -303,8 +299,3 @@ try:
     client.run(os.getenv("TOKEN"))
 except Exception as err:
     raise err
-
-@client.event
-async def on_message(message):
-  if message.content == "fuck":
-    await message.delete()
