@@ -61,6 +61,8 @@ Here's what you can do with CamelCoins:
 15. 💼 **$exithangman** - Quit hangman game. 
 16. ℹ️ **$camelhelp** - Display this help message. Because even camel riders need directions sometimes.
 17. 💰 **$deductmoney [user] [amount]** - Deduct camel coins from your balance. (Admin only)
+18. 🏪 **$store** - Display the available options for purchase in the store.
+19. 💰 **$buy {number}** - Buy the role that suits your needs. 
 """
   await ctx.send(help_message)
   
