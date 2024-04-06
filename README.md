@@ -1,7 +1,7 @@
 Discord Bot - CamelBot
 Track and Contributors:
 Track: Discord Arcade
-Contributors: Harsh Gupta(Reverent2005), Chirayu Chaudhary(Mushmat), Swayam Kotecha(SWAYAMK44)
+Contributors: Harsh Gupta(Reverent2005), Chirayu Choudhary(Mushmat), Swayam Kotecha(SWAYAMK44)
 
 Problem Statement:
 Develop a Discord bot on the theme arcade that offers various fun features and games to users within a Discord server.
@@ -35,6 +35,8 @@ Applications of Your Idea:
 Enhancing community engagement and interaction within Discord servers.
 Providing entertainment and fun activities for users.
 Creating a platform for gaming(betting;)) experiences within Discord.
+
+Note- Use hangman game with some delay in your input due the the ram restrictions of Replit.
 
 Further Improvements:
 Adding more games and features to expand the bot's functionality.
