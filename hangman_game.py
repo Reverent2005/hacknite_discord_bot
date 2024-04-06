@@ -79,9 +79,10 @@ class HangmanGame:
         return True, f"Suffocation killed the man:skull_crossbones:. The country was: " + self.current_word
     
     result_message = await self.get_current_state(ctx)
-    if result_message.strip():  # Check if the message is not empty or whitespace
-        await ctx.send(result_message)
-    return False, result_message
+    if result_message is not None and result_message.strip():  # Check if the message is not empty or whitespace
+      return False, result_message
+    else:
+      return False, "The game is over!"
     
   async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
@@ -93,7 +94,8 @@ class HangmanGame:
       self.first_time = False
     instructions += (f"- Attempts left: {self.attempts_left}\n"
                      f"- Current word: {masked_word_display}\n"
-                     f"- Hangman status:\n")
+                     f"- Hangman status:\n"
+                     f"- Please reply with a 5-10 second delay :)\n")
     if self.first_time:
       instructions += "- Start by guessing a letter using $guess_letter <letter>"
     else:

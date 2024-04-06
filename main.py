@@ -57,6 +57,15 @@ async def guess_letter(ctx, letter: str):
   global game_instance_hangman
   game_over, result_message = await game_instance_hangman.guess_letter(ctx, letter.lower())
   await ctx.send(result_message)
+  if result_message.startswith("Suffocation"):
+    await ctx.send(f"Prepare to suffer")
+    limit = 1
+    jokeurl = 'https://api.api-ninjas.com/v1/jokes?limit={}'.format(limit)
+    response = requests.get(jokeurl, headers={'X-Api-Key': os.getenv("APININJAS") })
+    if response.status_code == requests.codes.ok:
+      await ctx.send(response.text[10:-2])
+    else:
+      await ctx.send("Error:", response.status_code, response.text)
   if game_over:
       await ctx.send("Type $hangman to start a new game.")
 
