@@ -77,8 +77,11 @@ class HangmanGame:
         self.current_drawing_index += 1
       if self.attempts_left == 0:
         return True, f"Suffocation killed the man:skull_crossbones:. The country was: " + self.current_word
-    # Send the current state after each guess
-    return False, await self.get_current_state(ctx)
+    
+    result_message = await self.get_current_state(ctx)
+    if result_message.strip():  # Check if the message is not empty or whitespace
+        await ctx.send(result_message)
+    return False, result_message
     
   async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
@@ -114,4 +117,4 @@ async def send_hangman_image(ctx, game_instance, message):
     await ctx.send(content=message,
                    file=discord.File(image_file, "hangman_image.jpg"))
     # Introduce a delay after sending each message
-    await asyncio.sleep(5)  # Adjust the delay time as needed
+    await asyncio.sleep(10)  # Adjust the delay time as needed
