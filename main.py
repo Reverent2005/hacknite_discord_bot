@@ -213,6 +213,8 @@ async def numberguess(ctx, guess: int):
     await ctx.send("There's no game in progress. Start a new game with $number.")
     return
   result_message = game_instance_number.guess_number(guess)
+  if discord.utils.get(ctx.author.roles, name="Red Role"):
+    game_instance_number.attempts += 14
   await ctx.send(result_message)
   if result_message.startswith("Congratulations"):
     game_instance_number.reset_game()
@@ -259,7 +261,11 @@ async def supsdownguess(ctx, guess: str):
     return
   result_message = game_instance_supsdown.roll(guess)
   await ctx.send(result_message)
-  if result_message.startswith("Congratulations"):
+  if result_message.startswith("Congratulations") and discord.utils.get(ctx.author.roles, name="Green Role"):
+    user_id = ctx.message.author.id
+    add_money(user_id, 3 * bet_amount)  # Triple the bet amount if they have the Green Role
+  
+  elif result_message.startswith("Congratulations"):
     if (guess == "7"):
       user_id = ctx.message.author.id
       add_money(user_id, 3*bet_amount)
