@@ -7,7 +7,6 @@ from replit import db
 import random
 from hangman_game import HangmanGame, get_word_list, send_hangman_image
 from guess import NumberGuessingGame
-from quotes import motivate
 
 intents = discord.Intents.default()
 intents.message_content = True
