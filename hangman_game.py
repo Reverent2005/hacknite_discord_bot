@@ -88,12 +88,13 @@ class HangmanGame:
   async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
     instructions = ""
+    
     if self.first_time:
       instructions += (
-          f"- Welcome to Hangman. The man must not hang, otherwise a bad joke is on its way to ruin your life.\n"
-          f"- Number of letters in the country: {len(self.current_word)}\n")
+          f"- Welcome to Hangman. The man must not hang, otherwise a bad joke is on its way to ruin your life.\n")
       self.first_time = False
-    instructions += (f"- Attempts left: {self.attempts_left}\n"
+    instructions += (f"- Number of letters in the country: {len(self.current_word)}\n"
+                     f"- Attempts left: {self.attempts_left}\n"
                      f"- Current word: {masked_word_display}\n"
                      f"- Please reply with a 5-10 second delay :)\n")
     if self.attempts_left == 1:
