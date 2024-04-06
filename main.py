@@ -28,9 +28,11 @@ active_coin_drops = {}
 async def hangman(ctx):
   global game_instance_hangman
   global game_in_progress
+  
   if (game_in_progress):
     await ctx.send("A game is already in progress.")
     return
+    
   game_instance_hangman.reset_game()
   await game_instance_hangman.get_current_state(ctx)
   game_in_progress = True
@@ -66,8 +68,14 @@ Here's what you can do with CamelCoins:
 async def guess_letter(ctx, letter: str):
   global game_instance_hangman
   global game_in_progress
+
+  if not game_in_progress:
+    await ctx.send("No Hangman game in progress.")
+    return
+  
   game_over, result_message = await game_instance_hangman.guess_letter(ctx, letter.lower())
   await ctx.send(result_message)
+  
   if result_message.startswith("Suffocation"):
     await ctx.send(f"Prepare to suffer")
     limit = 1
@@ -77,10 +85,20 @@ async def guess_letter(ctx, letter: str):
       await ctx.send(response.text[10:-2])
     else:
       await ctx.send("Error:", response.status_code, response.text)
+      
   if game_over:
       game_in_progress = False
-      await ctx.send("Type $hangman to start a new game.")
+      await ctx.send("Type $restart_hangman to start a new game.")
+    
+@client.command()
+async def restart_hangman(ctx):
+    global game_instance_hangman
+    global game_in_progress
 
+    game_instance_hangman.reset_game()
+    await game_instance_hangman.get_current_state(ctx)
+    game_in_progress = True
+  
 @client.command()
 async def exithangman(ctx):
     global game_instance_hangman
