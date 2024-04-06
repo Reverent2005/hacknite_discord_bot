@@ -5,7 +5,7 @@ from discord.ext import commands
 from supsdown import updown
 from replit import db
 import random
-from hangman_game import HangmanGame, get_word_list
+from hangman_game import HangmanGame, get_word_list, send_hangman_image
 from guess import NumberGuessingGame
 from quotes import motivate
 
@@ -22,13 +22,15 @@ image_folder_path = 'images'
 game_instance_hangman = HangmanGame(word_list,image_folder_path)
 channel_id = 1225736957917925378
 
+
 @client.command()
 async def hangman(ctx):
   global game_instance_hangman
   game_instance_hangman.reset_game()
-  instructions = game_instance_hangman.get_current_state()
+  instructions = await game_instance_hangman.get_current_state(ctx)
   await ctx.send(f"Welcome to Hangman!\n{instructions}")
-  await send_hangman_image(ctx, game_instance_hangman)
+  await send_hangman_image(ctx, game_instance_hangman, instructions)
+
 
 @client.command()
 async def camelhelp(ctx):
@@ -59,7 +61,7 @@ async def guess_letter(ctx, letter: str):
   if not letter.isalpha() or len(letter) != 1:
       await ctx.send("Please enter a single letter.")
       return
-  game_over, result_message = game_instance_hangman.guess_letter(letter.lower())
+  game_over, result_message = game_instance_hangman.guess_letter(ctx, letter.lower())
   await ctx.send(result_message)
   if game_over:
       await ctx.send("Type $hangman to start a new game.")
@@ -303,9 +305,6 @@ try:
     client.run(os.getenv("TOKEN"))
 except Exception as err:
     raise err
-@client.event
-async def on_message(message):
-  if message.content=="fuck":
-    await message.delete()
+
     
   

@@ -1,5 +1,6 @@
 import random
 import os
+import discord
 
 
 def get_word_list():
@@ -28,14 +29,15 @@ def get_word_list():
       "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania",
       "Russia", "Rwanda", "Saint", "Samoa", "San", "Sao", "Saudi", "Senegal",
       "Serbia", "Seychelles", "Sierra", "Singapore", "Slovakia", "Slovenia",
-      "Solomon", "Somalia", "Spain", "America", "Sudan", "Suriname",
-      "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania",
-      "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad", "Tunisia",
-      "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United",
-      "Uruguay", "Uzbekistan", "Vanuatu", "Vatican", "Venezuela", "Vietnam",
-      "Yemen", "Zambia", "Zimbabwe"
+      "Solomon", "Somalia", "Spain", "America", "Sudan", "Suriname", "Sweden",
+      "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand",
+      "Timor-Leste", "Togo", "Tonga", "Trinidad", "Tunisia", "Turkey",
+      "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United", "Uruguay",
+      "Uzbekistan", "Vanuatu", "Vatican", "Venezuela", "Vietnam", "Yemen",
+      "Zambia", "Zimbabwe"
   ]
   return word_list
+
 
 class HangmanGame:
 
@@ -56,7 +58,7 @@ class HangmanGame:
         '_' if char.isalpha() else char for char in self.current_word
     ]
 
-  def guess_letter(self, letter):
+  async def guess_letter(self, ctx, letter):
     letter = letter.lower()
     if letter in self.guesses:
       return False, "You've already guessed that letter!"
@@ -75,10 +77,9 @@ class HangmanGame:
       if self.attempts_left == 0:
         return True, "Sorry, you ran out of attempts. The country was: " + self.current_word
 
-    return False, self.get_current_state()
+    return False, await self.get_current_state(ctx)
 
-  
-  def get_current_state(self):
+  async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
     instructions = ""
     if self.first_time:
@@ -96,15 +97,18 @@ class HangmanGame:
 
     if self.attempts_left == 0:
       self.current_drawing_index = 5
-    image_path = f"images/{self.current_drawing_index}.jpg"  
+    image_path = f"images/{self.current_drawing_index}.jpg"
     instructions += "Here's the Hangman image:"
+    await send_hangman_image(ctx, self, instructions)
 
   def get_current_drawing(self):
     image_filename = f"{self.current_drawing_index + 1}.jpg"
-    image_url = f"https://replit.com/@harshgupta2300/Discord-Bot#images/{image_filename}"
-    return image_url
-async def send_hangman_image(ctx, image_path, message):
-  image_path = f"images/{game_instance.current_drawing_index}.jpg"  
-  instructions = game_instance.get_current_state()
+    image_path = os.path.join(self.image_folder_path, image_filename)
+    return image_path
+
+
+async def send_hangman_image(ctx, game_instance_hangman, message):
+  image_path = game_instance_hangman.get_current_drawing()
   with open(image_path, "rb") as image_file:
-    await ctx.send(content=instructions, file=discord.File(image_file, "hangman_image.jpg"))
+    await ctx.send(content=message,
+                   file=discord.File(image_file, "hangman_image.jpg"))
