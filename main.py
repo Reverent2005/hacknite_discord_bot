@@ -29,8 +29,6 @@ async def hangman(ctx):
   game_instance_hangman.reset_game()
   instructions = await game_instance_hangman.get_current_state(ctx)
   await ctx.send(f"Welcome to Hangman!\n{instructions}")
-  await send_hangman_image(ctx, game_instance_hangman, instructions)
-
 
 @client.command()
 async def camelhelp(ctx):

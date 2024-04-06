@@ -98,7 +98,7 @@ class HangmanGame:
     if self.attempts_left == 0:
       self.current_drawing_index = 5
     image_path = f"images/{self.current_drawing_index}.jpg"
-    instructions += "Here's the Hangman image:"
+    instructions += "\nHere's the Hangman image:"
     await send_hangman_image(ctx, self, instructions)
 
   def get_current_drawing(self):
