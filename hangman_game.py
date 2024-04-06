@@ -77,13 +77,14 @@ class HangmanGame:
         self.current_drawing_index += 1
       if self.attempts_left == 0:
         return True, f"Suffocation killed the man:skull_crossbones:. The country was: " + self.current_word
-    
+
     result_message = await self.get_current_state(ctx)
-    if result_message is not None and result_message.strip():  # Check if the message is not empty or whitespace
+    if result_message is not None and result_message.strip(
+    ):  # Check if the message is not empty or whitespace
       return False, result_message
     else:
-      return False, "The game is over!"
-    
+      return False
+
   async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
     instructions = ""
@@ -100,7 +101,7 @@ class HangmanGame:
       instructions += "- Start by guessing a letter using $guess_letter <letter>"
     else:
       instructions += "- Continue by guessing a letter using $guess_letter <letter>"
-  
+
     if self.attempts_left == 0:
       self.current_drawing_index = 5
     image_path = f"images/{self.current_drawing_index}.jpg"
