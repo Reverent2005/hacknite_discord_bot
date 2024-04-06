@@ -91,7 +91,7 @@ class HangmanGame:
     if self.first_time:
       instructions += (
           f"- Welcome to Hangman. The man must not hang, otherwise a bad joke is on its way to ruin your life.\n"
-          f"- Number of letters in the word: {len(self.current_word)}\n")
+          f"- Number of letters in the country: {len(self.current_word)}\n")
       self.first_time = False
     instructions += (f"- Attempts left: {self.attempts_left}\n"
                      f"- Current word: {masked_word_display}\n"
