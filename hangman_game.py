@@ -83,7 +83,7 @@ class HangmanGame:
     ):  # Check if the message is not empty or whitespace
       return False, result_message
     else:
-      return False
+      return False, "You are doing great!!"
 
   async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
@@ -95,7 +95,6 @@ class HangmanGame:
       self.first_time = False
     instructions += (f"- Attempts left: {self.attempts_left}\n"
                      f"- Current word: {masked_word_display}\n"
-                     f"- Hangman status:\n"
                      f"- Please reply with a 5-10 second delay :)\n")
     if self.first_time:
       instructions += "- Start by guessing a letter using $guess_letter <letter>"
