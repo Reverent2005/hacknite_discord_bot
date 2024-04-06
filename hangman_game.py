@@ -37,6 +37,9 @@ def get_word_list():
   ]
   return word_list
 
+async def send_hangman_image(ctx, image_path, message):
+  with open(image_path,"rb") as image_file:
+    await ctx.send(content = message, file = discord.File(image_file,"hangman_image.jpg"))
 
 class HangmanGame:
 
@@ -78,6 +81,7 @@ class HangmanGame:
 
     return False, self.get_current_state()
 
+  
   def get_current_state(self):
     masked_word_display = ' '.join(self.masked_word)
     instructions = ""
@@ -96,9 +100,9 @@ class HangmanGame:
 
     if self.attempts_left == 0:
       self.current_drawing_index = 5
-    image_url = f"https://replit.com/@harshgupta2300/Discord-Bot#images/{self.current_drawing_index}.jpg"
-    instructions += f"\n[Hangman Image]({image_url})"
-    return instructions
+    image_path = f"images/{self.current_drawing_index}.jpg"  
+    instructions += "Here's the Hangman image:"
+    await send_hangman_image(ctx, image_path, instructions)
 
   def get_current_drawing(self):
     image_filename = f"{self.current_drawing_index + 1}.jpg"

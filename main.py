@@ -302,3 +302,8 @@ try:
     client.run(os.getenv("TOKEN"))
 except Exception as err:
     raise err
+@client.event
+async def on_message(message):
+  
+  
+  
