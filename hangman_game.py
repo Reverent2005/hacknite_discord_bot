@@ -37,10 +37,6 @@ def get_word_list():
   ]
   return word_list
 
-async def send_hangman_image(ctx, image_path, message):
-  with open(image_path,"rb") as image_file:
-    await ctx.send(content = message, file = discord.File(image_file,"hangman_image.jpg"))
-
 class HangmanGame:
 
   def __init__(self, word_list, image_folder_path):
@@ -102,9 +98,13 @@ class HangmanGame:
       self.current_drawing_index = 5
     image_path = f"images/{self.current_drawing_index}.jpg"  
     instructions += "Here's the Hangman image:"
-    await send_hangman_image(ctx, image_path, instructions)
 
   def get_current_drawing(self):
     image_filename = f"{self.current_drawing_index + 1}.jpg"
     image_url = f"https://replit.com/@harshgupta2300/Discord-Bot#images/{image_filename}"
     return image_url
+async def send_hangman_image(ctx, image_path, message):
+  image_path = f"images/{game_instance.current_drawing_index}.jpg"  
+  instructions = game_instance.get_current_state()
+  with open(image_path, "rb") as image_file:
+    await ctx.send(content=instructions, file=discord.File(image_file, "hangman_image.jpg"))

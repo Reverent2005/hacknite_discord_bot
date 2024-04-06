@@ -28,6 +28,7 @@ async def hangman(ctx):
   game_instance_hangman.reset_game()
   instructions = game_instance_hangman.get_current_state()
   await ctx.send(f"Welcome to Hangman!\n{instructions}")
+  await send_hangman_image(ctx, game_instance_hangman)
 
 @client.command()
 async def camelhelp(ctx):
@@ -304,6 +305,7 @@ except Exception as err:
     raise err
 @client.event
 async def on_message(message):
-  
-  
+  if message.content=="fuck":
+    await message.delete()
+    
   
