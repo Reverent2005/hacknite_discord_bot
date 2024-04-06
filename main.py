@@ -61,7 +61,7 @@ async def guess_letter(ctx, letter: str):
   if not letter.isalpha() or len(letter) != 1:
       await ctx.send("Please enter a single letter.")
       return
-  game_over, result_message = game_instance_hangman.guess_letter(ctx, letter.lower())
+  game_over, result_message = await game_instance_hangman.guess_letter(ctx, letter.lower())
   await ctx.send(result_message)
   if game_over:
       await ctx.send("Type $hangman to start a new game.")
@@ -306,5 +306,7 @@ try:
 except Exception as err:
     raise err
 
-    
-  
+@client.event
+async def on_message(message):
+  if message.content == "fuck":
+    await message.delete()
