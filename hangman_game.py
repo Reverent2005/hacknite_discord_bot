@@ -83,7 +83,7 @@ class HangmanGame:
     ):  # Check if the message is not empty or whitespace
       return False, result_message
     else:
-      return False, "You are doing great!!"
+      return False, "SUFFER!!"
 
   async def get_current_state(self, ctx):
     masked_word_display = ' '.join(self.masked_word)
