@@ -40,14 +40,14 @@ def get_word_list():
 
 class HangmanGame:
 
-  def __init__(self, word_list,image_folder_path):
+  def __init__(self, word_list, image_folder_path):
     self.word_list = word_list
     self.max_attempts = 5
     self.attempts_left = self.max_attempts
     self.reset_game()
     self.first_time = True
     self.current_drawing_index = 0
-    self.image_folder_path = 'images'  
+    self.image_folder_path = 'images'
 
   def reset_game(self):
     self.attempts_left = self.max_attempts
@@ -74,35 +74,33 @@ class HangmanGame:
       if self.attempts_left >= 0:
         self.current_drawing_index += 1
       if self.attempts_left == 0:
-        return True, "Sorry, you ran out of attempts. The word was: " + self.current_word
+        return True, "Sorry, you ran out of attempts. The country was: " + self.current_word
 
     return False, self.get_current_state()
-    
+
   def get_current_state(self):
     masked_word_display = ' '.join(self.masked_word)
     instructions = ""
     if self.first_time:
-        instructions += (
-            f"- Welcome to Hangman. The man must not hang, otherwise a bad joke is on its way to ruin your life.\n"
-            f"- Number of letters in the word: {len(self.current_word)}\n"
-        )
-        self.first_time = False
-    instructions += (
-        f"- Attempts left: {self.attempts_left}\n"
-        f"- Current word: {masked_word_display}\n"
-        f"- Hangman status:\n"
-    )
+      instructions += (
+          f"- Welcome to Hangman. The man must not hang, otherwise a bad joke is on its way to ruin your life.\n"
+          f"- Number of letters in the word: {len(self.current_word)}\n")
+      self.first_time = False
+    instructions += (f"- Attempts left: {self.attempts_left}\n"
+                     f"- Current word: {masked_word_display}\n"
+                     f"- Hangman status:\n")
     if self.first_time:
-        instructions += "- Start by guessing a letter using $guess <letter>"
+      instructions += "- Start by guessing a letter using $guess <letter>"
     else:
-        instructions += "- Continue by guessing a letter using $guess <letter>"
+      instructions += "- Continue by guessing a letter using $guess <letter>"
 
+    if self.attempts_left == 0:
+      self.current_drawing_index = 5
     image_url = f"https://replit.com/@harshgupta2300/Discord-Bot#images/{self.current_drawing_index}.jpg"
-    instructions += f"\n![Hangman Image]({image_url})"
+    instructions += f"\n[Hangman Image]({image_url})"
     return instructions
-    
-  def get_current_drawing(self):
-      image_filename = f"{self.current_drawing_index + 1}.jpg"
-      image_url = f"https://replit.com/@harshgupta2300/Discord-Bot#images/{image_filename}"
-      return image_url
 
+  def get_current_drawing(self):
+    image_filename = f"{self.current_drawing_index + 1}.jpg"
+    image_url = f"https://replit.com/@harshgupta2300/Discord-Bot#images/{image_filename}"
+    return image_url
