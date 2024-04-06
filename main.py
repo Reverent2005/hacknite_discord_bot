@@ -87,14 +87,26 @@ async def exithangman(ctx):
     await ctx.send("Winners never Quit. But you did, so you are not winner. Then who are you? Quitter? Twitter? Elon Musk?")
 
 @client.command()
-async def addmoney(ctx, coins: int):
+async def addmoney(ctx,target: discord.Member, coins: int):
   if ctx.message.author.id == int(os.environ['ADMIN_ID']):
-    user_id = ctx.message.author.id
+    user_id = target.id
     if str(user_id) in db.keys():
       db[str(user_id)] += coins
     else:
       db[str(user_id)] = coins
     await ctx.send(f"Added {coins} camel coins:camel: to the balance.:white_check_mark:")
+  else:
+    await ctx.send("You are not authorized to use this command.:x:")
+
+@client.command()
+async def deductmoney(ctx,target: discord.Member, coins: int):
+  if ctx.message.author.id == int(os.environ['ADMIN_ID']):
+    user_id = target.id
+    if str(user_id) in db.keys():
+      db[str(user_id)] -= coins
+    else:
+      db[str(user_id)] = coins
+    await ctx.send(f"Deducted {coins} camel coins:camel: from the balance.:white_check_mark:")
   else:
     await ctx.send("You are not authorized to use this command.:x:")
 
