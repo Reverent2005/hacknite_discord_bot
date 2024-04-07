@@ -94,18 +94,31 @@ async def guess_letter(ctx, letter: str):
     
 @client.command()
 async def restart_hangman(ctx):
-    global game_instance_hangman
-    global game_in_progress
+  global game_instance_hangman
+  global game_in_progress
 
-    game_instance_hangman.reset_game()
-    await game_instance_hangman.get_current_state(ctx)
-    game_in_progress = True
+  if game_instance_hangman is None:
+      word_list = get_word_list()
+      game_instance_hangman = HangmanGame(word_list, image_folder_path)
+  else:
+      game_instance_hangman.reset_game()
+
+  await game_instance_hangman.get_current_state(ctx)
+  game_in_progress = True
+
   
 @client.command()
 async def exithangman(ctx):
-    global game_instance_hangman
-    game_instance_hangman = None  # Reset the game instance to exit Hangman
-    await ctx.send("Winners never Quit. But you did, so you are not winner. Then who are you? Quitter? Twitter? Elon Musk?")
+  global game_instance_hangman
+
+  if game_instance_hangman is not None:
+      game_instance_hangman.reset_game()
+      await ctx.send("Winners never Quit. But you did, so you are not winner. Then who are you? Quitter? Twitter? Elon Musk?")
+  else:
+      await ctx.send("No Hangman game in progress.")
+
+  game_instance_hangman = None  # Reset the game instance to None after reset or if it's already None
+
 
 @client.command()
 async def addmoney(ctx,target: discord.Member, coins: int):
