@@ -366,22 +366,22 @@ async def leaderboard(ctx):
     await ctx.send("The leaderboard is currently empty.")
 
 store_items = {
-    "1. Red Role": {
+    "1. Red Role :red_circle:": {
         "price": 20000,
         "role_name": "Red Role",  # Role name should match exactly with Discord role names
         "description": "Get 15 attempts in Number Guess Game (Red Colored Role)"
     },
-    "2. Purple Role": {
+    "2. Purple Role :purple_circle:": {
         "price": 40000,
         "role_name": "Purple Role",
         "description": "For the love of purple. (Purple Colored Role)"
     },
-    "3. Green Role": {
+    "3. Green Role :green_circle:": {
         "price": 60000,
         "role_name": "Green Role",
         "description": "Get triple the amount if guessed correctly in 7 Up and 7 Down (Green Colored Role)"
     },
-    "4. Yellow Role": {
+    "4. Yellow Role :yellow_circle:": {
         "price": 70000000,
         "role_name": "Yellow Role",
         "description": "Saaath Kadod (Yellow Colored Role)"
