@@ -350,6 +350,7 @@ async def on_member_join(member):
   global channel_id
   general = client.get_channel(channel_id)
   await general.send(f"Welcome, {member.name}.:black_heart: Hope you brought your sense of humor and some camel coins:camel:. The void tends to demand both.:smiling_imp:")
+  await general.send(f"Type $camelhelp to see the list of commands. :robot::camel:")
   db[str(member.id)] = 100
 
 @client.event
