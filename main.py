@@ -23,7 +23,6 @@ game_instance_hangman = HangmanGame(word_list,image_folder_path)
 channel_id = 1225736957917925378
 active_coin_drops = {}
 
-
 @client.command()
 async def hangman(ctx):
   global game_instance_hangman
@@ -402,8 +401,6 @@ store_items = {
     }
 }
 
-
-
 @client.command()
 async def store(ctx):
     store_message = "🛒 **Welcome to the Store!** 🛒\n\nWrite $buy [number] to buy that specific role.\n\n"
@@ -444,6 +441,20 @@ async def buy(ctx, item_number: int):
     db[user_id] -= item_price  # Deduct coins from user's balance
     await ctx.send(f"Congratulations! You have purchased the {item_name}. Enjoy your new role.")
 
+@client.command()
+async def donate(ctx,amount:int):
+  user_id = ctx.author.id
+  if (amount <= 0):
+    await ctx.send("You can't donate negative or zero camel coins:camel:!")
+    return
+
+  if db[str(user_id)] < amount:
+    await ctx.send("Uh-oh! Looks like your generosity exceeds your wealth!:money_with_wings")
+    return
+  add_money(user_id, -amount)
+  await ctx.send(f'Thank you for your generosity! {amount} camel coins have been donated to the Edureach India Foundation')
+  await ctx.send(f"To know more about the organization you just donated to, visit https://frontend-hacknite.vercel.app/")
+  
 try:
     client.run(os.getenv("TOKEN"))
 except Exception as err:
