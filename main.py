@@ -138,6 +138,7 @@ async def bet(ctx, coins: int):
   user_id = ctx.message.author.id
   if (db[str(user_id)] < coins):
     await ctx.send("Looks like you're trying to gamble with sand instead of coins!:cactus::camel: Maybe it's time to find a treasure trove instead of scraping the dunes.")
+    return
   if (game_in_progress == False):
     bet_amount = coins
     add_money(user_id, -bet_amount)
@@ -145,7 +146,7 @@ async def bet(ctx, coins: int):
   else:
     global channel_id
     general = client.get_channel(channel_id)
-    await general.send(f"Hold your horses! A game's already underway. Patience, my friend.")
+    await general.send(f"Hold your camels! A game's already underway. Patience, my friend.")
   
 @client.command()
 async def balance(ctx):
@@ -342,7 +343,7 @@ async def on_member_remove(member):
   global channel_id
   general = client.get_channel(channel_id)
   del db[str(user_id)]
-  await general.send(f"{member.name}, Nikal Lavde!")
+  await general.send(f"Hey {member.name}, looks like you've wandered into the wrong oasis! Time to grab your camel and find your way back. 🐪")
 
 def get_leaderboard(limit=5):
   user_balances = [(user_id, db[user_id]) for user_id in db.keys()]
