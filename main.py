@@ -372,7 +372,10 @@ async def leaderboard(ctx):
     leaderboard_message = "🏆 Leaderboard 🏆\n"
     for rank, (user_id, balance) in enumerate(top_users, start=1):
       user = client.get_user(int(user_id))
-      if user:
+      if rank == 1 and user:
+        username = user.name
+        leaderboard_message += f"{rank}. {username}: {balance} camel coins :crown:\n"
+      elif user:
         username = user.name
         leaderboard_message += f"{rank}. {username}: {balance} camel coins\n"
       else:
