@@ -22,7 +22,3 @@ class updown:
   def reset_game(self):
     self.dice1=random.randint(1,7)
     self.dice2=random.randint(1,7)
-    
-    
-    
-

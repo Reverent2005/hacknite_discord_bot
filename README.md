@@ -42,6 +42,8 @@ Features:
 
 •Shop roles from the store and enjoy exclusive benefits in the games.
 
+•DONATE CAMEL COINS TO OUR FELLOW WEB-DEVELOPERS EDUREACH
+
 Tech Stack
 
 •Discord.py: Python library for interacting with the Discord API.

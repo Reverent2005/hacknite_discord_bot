@@ -8,6 +8,7 @@ import random
 import asyncio
 from hangman_game import HangmanGame, get_word_list, send_hangman_image
 from guess import NumberGuessingGame
+from keep_alive import keep_alive
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -22,6 +23,7 @@ image_folder_path = 'images'
 game_instance_hangman = HangmanGame(word_list,image_folder_path)
 channel_id = 1225736957917925378
 active_coin_drops = {}
+keep_alive()
 
 @client.command()
 async def hangman(ctx):
