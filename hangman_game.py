@@ -28,7 +28,7 @@ def get_word_list():
       "Netherlands", "Nicaragua", "Niger", "Nigeria", "North", "Norway",
       "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua", "Paraguay",
       "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania",
-      "Russia", "Rwanda", "Saint", "Samoa", "San", "Sao", "Saudi", "Senegal",
+      "Russia", "Rwanda", "Saint", "Samoa", "Senegal",
       "Serbia", "Seychelles", "Sierra", "Singapore", "Slovakia", "Slovenia",
       "Solomon", "Somalia", "Spain", "America", "Sudan", "Suriname", "Sweden",
       "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand",
@@ -86,7 +86,7 @@ class HangmanGame:
       return False, "SUFFER!!"
 
   async def get_current_state(self, ctx):
-    masked_word_display = ' '.join(self.masked_word)
+    masked_word_display = '_'.join(self.masked_word)
     instructions = ""
     
     if self.first_time:
