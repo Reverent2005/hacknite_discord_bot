@@ -64,7 +64,7 @@ How to Run:
 
 •Enjoy through the features of the beloved camel.
 
-If this doesn't work, then: 
+If this doesn't work(sometimes it may have to be reset), then: 
  
  **PROCESS 2**
 •You can enjoy riding the camel through the replit platform.
