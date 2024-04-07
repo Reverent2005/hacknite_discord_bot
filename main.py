@@ -430,7 +430,6 @@ async def buy(ctx, item_number: int):
     db[user_id] -= item_price  # Deduct coins from user's balance
     await ctx.send(f"Congratulations! You have purchased the {item_name}. Enjoy your new role.")
 
-
 try:
     client.run(os.getenv("TOKEN"))
 except Exception as err:
