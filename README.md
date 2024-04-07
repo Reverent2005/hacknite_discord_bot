@@ -1,6 +1,6 @@
-Discord Bot - Camel Bot 
+**Discord Bot - Camel Bot**
 
-Track and Contributors:
+**Track and Contributors:**
 
 •Track: Discord Arcade
 
@@ -14,15 +14,15 @@ Contributors:
 
 •Swayam Kotecha(SWAYAMK44)
 
-Problem Statement:
+**Problem Statement:**
 
 Develop a Discord bot on the theme arcade that offers various fun features and games to users within a Discord server.
 
-Goal:
+**Goal:**
 
 The goal of CamelBot is to enhance user engagement and interaction within the Discord server by providing entertaining games, useful commands, a currency(camel coin) which can be used to bet upon and win surprising roles from the store, and more.
 
-Features:
+**Features:**
 
 •Camel Coins System: Users can earn and spend virtual currency (Camel Coins) within the server.
 
@@ -44,7 +44,7 @@ Features:
 
 •DONATE CAMEL COINS TO OUR FELLOW WEB-DEVELOPERS EDUREACH
 
-Tech Stack
+**Tech Stack**
 
 •Discord.py: Python library for interacting with the Discord API.
 
@@ -57,7 +57,16 @@ Tech Stack
 •Git & GitHub: Version control and collaboration platform.
 
 How to Run:
+ **PROCESS 1**
+ **THE BOT IS HOSTED ON THE SERVER**
+ 
+•Join the discord server from this link : https://discord.gg/CXhnyqqNUK
 
+•Enjoy through the features of the beloved camel.
+
+If this doesn't work, then: 
+ 
+ **PROCESS 2**
 •You can enjoy riding the camel through the replit platform.
 
 •Go on the replit database using : https://replit.com/join/rwmdalmern-harshgupta2300
@@ -68,11 +77,11 @@ How to Run:
 
 •Enjoy through the features of the beloved camel.
 
-Deployment:
+**Deployment:**
 
-The bot is deployed on Replit. Simply run the main script on the Replit platform to start the bot.
+The bot is deployed on Replit. Simply run the main script on the Replit platform to start the bot or just join the discord server. **THE BOT IS HOSTED ON THE SERVER**
 
-Applications of Your Idea:
+**Applications of Your Idea:**
 
 •Enhancing community engagement and interaction within Discord servers.
 
@@ -82,7 +91,7 @@ Applications of Your Idea:
 
 •Note- Use hangman game with some delay in your input due the the ram restrictions of Replit.
 
-Further Improvements:
+**Further Improvements:**
 
 •Adding more games and features to expand the bot's functionality.
 
@@ -91,3 +100,7 @@ Further Improvements:
 •Optimizing the code for performance and scalability.
 
 •Adding logging and analytics to track bot usage and user engagement.
+
+**DEMO OF THE BOT (YOUTUBE LINK):**
+
+https://youtu.be/jsoFaTrboQE
