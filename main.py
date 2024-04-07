@@ -442,18 +442,20 @@ async def buy(ctx, item_number: int):
     await ctx.send(f"Congratulations! You have purchased the {item_name}. Enjoy your new role.")
 
 @client.command()
-async def donate(ctx,amount:int):
+async def donate(ctx, amount: int):
   user_id = ctx.author.id
-  if (amount <= 0):
-    await ctx.send("You can't donate negative or zero camel coins:camel:!")
+  if amount <= 0:
+    await ctx.send("Wow, a donation of zero camel coins? That's like offering sand to the desert! 🐪💰")
     return
 
   if db[str(user_id)] < amount:
-    await ctx.send("Uh-oh! Looks like your generosity exceeds your wealth!:money_with_wings")
+    await ctx.send("Whoa there! Your generosity is admirable, but it seems your wallet needs a refill first! 💸")
     return
+
   add_money(user_id, -amount)
-  await ctx.send(f'Thank you for your generosity! {amount} camel coins have been donated to the Edureach India Foundation')
-  await ctx.send(f"To know more about the organization you just donated to, visit https://frontend-hacknite.vercel.app/")
+  await ctx.send(f"Thank you for your kind donation! {amount} camel coins have been sent on their desert journey to the Edureach India Foundation! 🌟")
+  await ctx.send("Want to know more about the incredible work your coins are supporting? Visit https://frontend-hacknite.vercel.app/ and prepare to be amazed! 🚀")
+
   
 try:
     client.run(os.getenv("TOKEN"))
